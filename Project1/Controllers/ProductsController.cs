@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Project1.Models;
 using Project1.Repositories;
 
@@ -33,6 +34,7 @@ namespace Project1.Controllers
             return book == null ? NotFound() : Ok(book);
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddNewBook(BookModel model)
         {
             try
@@ -47,6 +49,7 @@ namespace Project1.Controllers
             }
         }
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateBook(int id, BookModel model)
         {
             if (id!= model.Id)
@@ -57,6 +60,7 @@ namespace Project1.Controllers
             return Ok();
         }
         [HttpDelete]
+        [Authorize]
         public async Task<IActionResult> DeleteBook(int id)
         {
             await _bookRepo.DeleteBookAsync(id);
